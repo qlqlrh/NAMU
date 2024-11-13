@@ -1,27 +1,15 @@
 plugins {
 	id 'java'
-<<<<<<< HEAD
-	id 'org.springframework.boot' version '3.3.5'
-	id 'io.spring.dependency-management' version '1.1.6'
-}
-
-group = 'com.NAMU'
-=======
 	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.6'
 }
 
 group = 'com.green'
->>>>>>> mypage
 version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-<<<<<<< HEAD
-		languageVersion = JavaLanguageVersion.of(21)
-=======
 		languageVersion = JavaLanguageVersion.of(17)
->>>>>>> mypage
 	}
 }
 
@@ -30,75 +18,19 @@ repositories {
 }
 
 dependencies {
-<<<<<<< HEAD
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-=======
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter:3.1.0'
 
-	// Http Interface
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
-	// FOR @ConfigurationProperties
-	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
-
-	// Lombok
-	implementation ('org.projectlombok:lombok')
-	compileOnly ('org.projectlombok:lombok:1.18.24')
-	annotationProcessor ('org.projectlombok:lombok:1.18.24')
-
-	// Validation
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-	implementation 'com.google.code.gson:gson:2.10'
-	implementation "io.netty:netty-resolver-dns-native-macos:4.1.95.Final"
+	// 스프링데이터 JPA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.h2database:h2' // 인메모리 데이터베이스
+	compileOnly 'org.projectlombok:lombok' // 롬복
+	annotationProcessor 'org.projectlombok:lombok'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.rest-assured:rest-assured:5.3.0'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-	// swagger
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-
-	// DB
-	runtimeOnly ('mysql:mysql-connector-java') //mysql 8
-	implementation 'mysql:mysql-connector-java:8.0.33'
-	implementation ('org.springframework.boot:spring-boot-starter-jdbc')
-	implementation ('org.springframework.boot:spring-boot-starter-data-jpa')
-
-	// jaxb-api
-	implementation 'javax.xml.bind:jaxb-api:2.3.1'
-	implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
-
-	// jwt
-	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
-	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-
-	implementation 'io.netty:netty-resolver-dns-native-macos:4.1.97.Final:osx-aarch_64'
-
-	// Jackson Databind 라이브러리
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
-
-	// JSON 처리 관련 추가 라이브러리
-	implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
-	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
-
->>>>>>> mypage
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
-<<<<<<< HEAD
-=======
-
-// FOR @ConfigurationProperties
-tasks.named('compileJava') {
-	inputs.files(tasks.named('processResources'))
-}
->>>>>>> mypage

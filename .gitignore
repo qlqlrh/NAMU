@@ -35,11 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-<<<<<<< HEAD
-=======
-
-# Ignore application.properties
-application.properties
-
-.DS_Store
->>>>>>> mypage
