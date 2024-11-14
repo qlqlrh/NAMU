@@ -27,18 +27,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleDuplicateSetNameException(DuplicateSetNameException exception) {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", "Conflict");
-        errors.put("message", exception.getMessage()); // "이미 존재하는 세트입니다."
-
-        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(MenuNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleMenuNotFoundException(MenuNotFoundException exception) {
-        Map<String, String> errors = new HashMap<>();
-        errors.put("error", "Not Found");
         errors.put("message", exception.getMessage());
 
-        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
-
+        return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
     }
 }

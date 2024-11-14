@@ -3,6 +3,7 @@ package com.green.namu.service;
 import com.green.namu.domain.Menu;
 import com.green.namu.dto.AddMenuRequest;
 import com.green.namu.dto.MenuSaveResponse;
+import com.green.namu.exception.DuplicateSetNameException;
 import com.green.namu.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,12 @@ public class MenuService {
 
     // 메뉴 추가 메서드
     public MenuSaveResponse save(AddMenuRequest request) {
+
+        // 세트명이 이미 존재하는지 확인
+        if (menuRepository.existsBySetName(request.getSetName())) {
+            throw new DuplicateSetNameException("이미 존재하는 세트입니다.");
+        }
+
         Menu savedMenu = menuRepository.save(request.toEntity());// DTO->Entity로 바꿔서 DB에 저장
 
         // 응답 메시지 구성
