@@ -2,8 +2,10 @@ package com.green.namu.service;
 
 import com.green.namu.domain.Menu;
 import com.green.namu.dto.AddMenuRequest;
+import com.green.namu.dto.MenuReadResponse;
 import com.green.namu.dto.MenuSaveResponse;
 import com.green.namu.exception.DuplicateSetNameException;
+import com.green.namu.exception.MenuNotFoundException;
 import com.green.namu.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,24 @@ public class MenuService {
                 savedMenu.getStatus().name(), // Enum의 이름을 문자열로 변환해서 반환
                 "메뉴 등록이 완료 되었습니다.",
                 savedMenu.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) // ISO 8601 형식 (년-월-일T시:분:초Z)
+        );
+    }
+
+    // 특정 메뉴 조회
+    public MenuReadResponse findById(Long id) {
+
+        // 존재하지 않는 메뉴 ID일 경우 예외 처리
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() -> new MenuNotFoundException("존재하지 않는 메뉴입니다."));
+
+        return new MenuReadResponse(
+                menu.getSetName(),
+                menu.getMenuNames(),
+                menu.getMenuPrice(),
+                menu.getMenuDiscountPrice(),
+                menu.getMenuPictureUrl(),
+                menu.getPopularity(),
+                menu.getMenuDetail()
         );
     }
 }

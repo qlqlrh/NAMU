@@ -2,7 +2,9 @@ package com.green.namu.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.green.namu.domain.Menu;
+import com.green.namu.domain.MenuStatus;
 import com.green.namu.dto.AddMenuRequest;
+import com.green.namu.dto.MenuSaveResponse;
 import com.green.namu.repository.MenuRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +22,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest // 테스트용 애플리케이션 컨텍스트
@@ -77,4 +81,47 @@ class MenuApiControllerTest {
         assertThat(menus.get(0).getSetName()).isEqualTo(setName);
         assertThat(menus.get(0).getMenuCategory()).isEqualTo(menuCategory);
     }
+
+    @DisplayName("getMenuById: 특정 메뉴 ID로 메뉴 조회에 성공한다.")
+    @Test
+    public void getMenuById() throws Exception {
+        // given
+        final String url = "/menu/{menuId}";
+        final String setName = "세트A";
+        final String menuNames = "애플 와플(1), 콘치폭 핫도그(1)";
+        final Integer menuPrice = 10100;
+        final Integer menuDiscountPrice = 5000;
+        final String menuPictureUrl = "https://asdf.com";
+        final Boolean popularity = true;
+        final String menuDetail = "애플 와플: ~~, 콘치폭 핫도그: ~~";
+        final String menuCategory = "베이커리";
+
+        // 메뉴 저장
+        // * new Menu 형식이 아니라, 빌더 형식으로 만들어서 save 해야 Id랑 createdAt, updatedAt 필드를 비울 수 있음!
+        Menu savedMenu = menuRepository.save(Menu.builder()
+                        .setName(setName)
+                        .menuNames(menuNames)
+                        .menuPrice(menuPrice)
+                        .menuDiscountPrice(menuDiscountPrice)
+                        .menuPictureUrl(menuPictureUrl)
+                        .popularity(popularity)
+                        .menuDetail(menuDetail)
+                        .menuCategory(menuCategory)
+                        .status(MenuStatus.ON_SALE)
+                        .build());
+
+        // when
+        ResultActions result = mockMvc.perform(get(url, savedMenu.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE));
+
+        // then
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.set_name").value(setName))
+                .andExpect(jsonPath("$.menu_names").value(menuNames))
+                .andExpect(jsonPath("$.menu_price").value(menuPrice))
+                .andExpect(jsonPath("$.menu_discount_price").value(menuDiscountPrice))
+                .andExpect(jsonPath("$.menu_picture_url").value(menuPictureUrl))
+                .andExpect(jsonPath("$.popularity").value(popularity));
+    }
+
 }
