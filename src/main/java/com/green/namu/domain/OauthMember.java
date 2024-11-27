@@ -1,6 +1,5 @@
 package com.green.namu.domain;
 
-import com.green.namu.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +19,7 @@ import lombok.*;
                 ),
         }
 )
-public class OauthMember extends BaseEntity {
+public class OauthMember {
 
     /*
         Oauth를 통해 가입한 회원
@@ -34,5 +33,4 @@ public class OauthMember extends BaseEntity {
     private OauthId oauthId;
     private String nickname;
     private String profileImageUrl;
-    private String email;
 }
