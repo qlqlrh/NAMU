@@ -57,6 +57,5 @@ public class KakaoMemberClient implements OauthMemberClient {
             log.error("HTTP Server Error: {}", e.getMessage());
             throw new RuntimeException("카카오 서버 오류");
         }
-
     }
 }
