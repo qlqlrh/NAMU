@@ -38,3 +38,5 @@ out/
 
 # Ignore application.properties
 application.properties
+
+.DS_Store

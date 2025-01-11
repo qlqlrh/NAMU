@@ -44,6 +44,9 @@ public enum BaseResponseStatus {
 
     MISSING_REQUIRED_FIELD(false, "Required field 'user_id' is missing", "MISSING_REQUIRED_FIELD"),
 
+    EMPTY_JWT(false, "JWT를 입력해주세요.", "EMPTY_JWT"),
+    INVALID_JWT(false, "유효하지 않은 JWT입니다.", "INVALID_JWT"),
+
 
 
     /**

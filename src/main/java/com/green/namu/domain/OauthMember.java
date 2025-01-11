@@ -33,4 +33,5 @@ public class OauthMember {
     private OauthId oauthId;
     private String nickname;
     private String profileImageUrl;
+    private String email;
 }
