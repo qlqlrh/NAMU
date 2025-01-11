@@ -1,12 +1,9 @@
 package com.green.namu.domain;
 
-import com.green.namu.common.entity.BaseEntity;
-import com.green.namu.domain.status.Status;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.JoinType;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -15,7 +12,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,16 +53,7 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status", nullable = false)
-    private Status userStatus; // ACTIVE or INACTIVE
-
-    @Column(name = "refresh_token") // 토큰 관리를 위해 추가
-    private String refreshToken;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cart> carts = new ArrayList<>();
+    private UserStatus userStatus; // ACTIVE or INACTIVE
 
     // 추가 생성자 (OauthMember 기반 User 생성)
     public static User fromOauthMember(OauthMember oauthMember) {
@@ -74,25 +62,11 @@ public class User extends BaseEntity {
                 .profileUrl(oauthMember.getProfileImageUrl())
                 .email(oauthMember.getEmail()) // 이메일은 OauthMember로부터 받아오거나 따로 처리
                 .role(Role.CUSTOMER) // 기본 역할 설정
-                .userStatus(Status.ACTIVE)
+                .userStatus(UserStatus.ACTIVE)
                 .ecoPoints(0)
                 .totalDiscount(0)
                 .joinType(JoinType.valueOf("KAKAO"))
                 .build();
-    }
-
-    public void addOrder(Order order) {
-        this.orders.add(order);
-        order.setUser(this);
-    }
-
-    public void addCart(Cart cart) {
-        this.carts.add(cart);
-        cart.setUser(this);
-    }
-
-    public void setTotalDiscount(Integer totalDiscount) {
-        this.totalDiscount = totalDiscount;
     }
 
     @Override
@@ -107,11 +81,6 @@ public class User extends BaseEntity {
     public int hashCode() {
         return Objects.hash(userId);
     }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
     public enum JoinType {
         INAPP, // 자체 이메일 가입
         KAKAO  // 카카오 가입
@@ -120,5 +89,10 @@ public class User extends BaseEntity {
     public enum Role {
         MERCHANT, // 가게 사장
         CUSTOMER  // 소비자
+    }
+
+    public enum UserStatus {
+        ACTIVE,    // 활성 상태
+        INACTIVE   // 비활성 상태
     }
 }

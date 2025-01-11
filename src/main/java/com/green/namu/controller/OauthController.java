@@ -1,6 +1,8 @@
 package com.green.namu.controller;
 
+import com.green.namu.common.response.BaseResponse;
 import com.green.namu.domain.OauthServerType;
+import com.green.namu.dto.PostLoginRes;
 import com.green.namu.service.OauthService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,7 @@ public class OauthController {
 
     @SneakyThrows // checked exception을 숨기고, 자동으로 예외 처리를 해 줌
     @GetMapping("/{oauthServerType}")
-    ResponseEntity<Void> redirectAuthCodeRequestUrl(
+    public ResponseEntity<Void> redirectAuthCodeRequestUrl(
             @PathVariable(name = "oauthServerType") OauthServerType oauthServerType,
             HttpServletResponse response
     ) {
@@ -29,11 +31,11 @@ public class OauthController {
     }
 
     @GetMapping("/login/{oauthServerType}")
-    ResponseEntity<Long> login(
+    public BaseResponse<PostLoginRes> login(
             @PathVariable(name = "oauthServerType") OauthServerType oauthServerType,
             @RequestParam(name = "code") String code
     ) {
-        Long login = oauthService.login(oauthServerType, code);
-        return ResponseEntity.ok(login);
+        PostLoginRes loginResponse = oauthService.login(oauthServerType, code);
+        return new BaseResponse<>(loginResponse);
     }
 }
