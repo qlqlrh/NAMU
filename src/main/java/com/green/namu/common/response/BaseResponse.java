@@ -15,14 +15,10 @@ public class BaseResponse<T> {
 
     @JsonProperty("isSuccess")
     private final Boolean isSuccess;
-
     private final String message; // 성공 또는 에러 메시지
-
-    @JsonInclude(JsonInclude.Include.NON_NULL) // null일 때 포함X
-    private T data; // 성공 시 데이터, 에러 시 포함 X
-
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String errorCode; // 에러 코드, 성공 시 포함 X
+    private T data; // 성공 시 데이터, 에러 시 null
+    private String errorCode; // 에러 코드, 성공 시 null
 
     // 요청에 성공한 경우
     public BaseResponse(T data) {
