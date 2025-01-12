@@ -42,8 +42,9 @@ public class Menu extends BaseEntity {
     @Column(name = "menu_detail")
     private String menuDetail;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "menu_category", nullable = false)
-    private String menuCategory;
+    private Category menuCategory;
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING) // enum의 값을 문자열 형태로 데이터베이스에 저장 (인덱스 형태가 아니라)
