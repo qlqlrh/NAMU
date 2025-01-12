@@ -1,5 +1,8 @@
 package com.green.namu.service;
 
+import com.green.namu.common.exceptions.BaseException;
+import com.green.namu.common.response.BaseResponse;
+import com.green.namu.common.response.BaseResponseStatus;
 import com.green.namu.domain.Menu;
 import com.green.namu.dto.AddMenuRequest;
 import com.green.namu.dto.MenuReadResponse;
@@ -40,7 +43,7 @@ public class MenuService {
 
         // 존재하지 않는 메뉴 ID일 경우 예외 처리
         Menu menu = menuRepository.findById(id)
-                .orElseThrow(() -> new MenuNotFoundException("존재하지 않는 메뉴입니다."));
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.MENU_NOT_FOUND));
 
         return new MenuReadResponse(
                 menu.getSetName(),

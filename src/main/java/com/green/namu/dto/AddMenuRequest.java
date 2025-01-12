@@ -1,6 +1,7 @@
 package com.green.namu.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.green.namu.domain.Category;
 import com.green.namu.domain.Menu;
 import com.green.namu.domain.MenuStatus;
 import jakarta.validation.constraints.Min;
@@ -46,7 +47,7 @@ public class AddMenuRequest {
     private String menuDetail;
 
     @JsonProperty("menu_category")
-    private String menuCategory;
+    private Category menuCategory;
 
     public Menu toEntity() {
         // DTO -> Entity 변환 메서드
