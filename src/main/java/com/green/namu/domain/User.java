@@ -1,9 +1,13 @@
 package com.green.namu.domain;
 
+import com.green.namu.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.JoinType;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -12,7 +16,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "users")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

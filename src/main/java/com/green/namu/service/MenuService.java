@@ -32,9 +32,7 @@ public class MenuService {
         // 응답 메시지 구성
         return new MenuSaveResponse(
                 savedMenu.getStatus().name(), // Enum의 이름을 문자열로 변환해서 반환
-                "메뉴 등록이 완료 되었습니다.",
-                savedMenu.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) // ISO 8601 형식 (년-월-일T시:분:초Z)
-        );
+                "메뉴 등록이 완료 되었습니다.");
     }
 
     // 특정 메뉴 조회

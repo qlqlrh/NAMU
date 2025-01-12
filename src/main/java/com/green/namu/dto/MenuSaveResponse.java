@@ -10,7 +10,4 @@ public class MenuSaveResponse {
 
     private String status;
     private String message;
-    @JsonProperty("created_at")
-    private String createdAt;
-
 }
