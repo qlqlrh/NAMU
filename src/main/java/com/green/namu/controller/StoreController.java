@@ -4,7 +4,7 @@ package com.green.namu.controller;
 import com.green.namu.common.exceptions.BaseException;
 import com.green.namu.common.response.BaseResponse;
 import com.green.namu.common.response.BaseResponseStatus;
-import com.green.namu.dto.StoreSearchRes;
+import com.green.namu.dto.StoreSearchResponse;
 import com.green.namu.service.StoreService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -34,28 +34,23 @@ public class StoreController {
             @ApiResponse(responseCode = "404", description = "SEARCH_NO_RESULTS"),
             @ApiResponse(responseCode = "400", description = "INVALID_SEARCH_QUERY"),
             @ApiResponse(responseCode = "500", description = "INTERNAL_SERVER_ERROR"),
+
     })
     @GetMapping("")
-    public BaseResponse<List<StoreSearchRes>> searchStores(
-            @RequestParam(value = "term", required = false) String term,
-            @RequestParam(value = "sort", defaultValue = "normal") String option) {
+    public BaseResponse<List<StoreSearchResponse>> search(@RequestParam("term") String term) {
 
         // validation
         if (term == null || term.isEmpty()) {
             throw new BaseException(BaseResponseStatus.INVALID_SEARCH_QUERY);
         }
 
-        List<String> validOptions = List.of("normal", "rating", "distance", "like", "order", "price");
-        if (!validOptions.contains(option)) {
-            throw new BaseException(BaseResponseStatus.INVALID_SORT_OPTION);
-        }
-
         try {
-            List<StoreSearchRes> searchResults = storeService.searchStores(term, option);
+            List<StoreSearchResponse> searchResults = storeService.searchStoresByTerm(term);
             return new BaseResponse<>(searchResults);
         } catch (BaseException e) {
-            log.error("검색 중 오류 발생: ", e);
+            log.error("검색 중 오류 발생: e");
             return new BaseResponse<>(e.getStatus());
+
         }
     }
 }

@@ -2,7 +2,6 @@ package com.green.namu.domain;
 
 import com.green.namu.common.converter.JpaJsonConverter;
 import com.green.namu.common.entity.BaseEntity;
-import com.green.namu.domain.status.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -65,10 +64,6 @@ public class Store extends BaseEntity {
     @ColumnDefault("0")
     private int reviewCount;
 
-    @Column(name = "order_count", nullable = false)
-    @ColumnDefault("0")
-    private int orderCount;
-
     @Column(name = "ceo_name", nullable = false, length = 20)
     private String ceoName;
 
@@ -95,10 +90,6 @@ public class Store extends BaseEntity {
     public void addMenu(Menu menu) {
         this.menus.add(menu);
         menu.setStore(this);
-    }
-
-    public void setOrderCount(int orderCount) {
-        this.orderCount = orderCount;
     }
 
     // ENUM for closed_days
