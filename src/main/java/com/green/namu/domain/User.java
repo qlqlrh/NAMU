@@ -57,7 +57,7 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status", nullable = false)
-    private UserStatus userStatus; // ACTIVE or INACTIVE
+    private Status userStatus; // ACTIVE or INACTIVE
 
     // 추가 생성자 (OauthMember 기반 User 생성)
     public static User fromOauthMember(OauthMember oauthMember) {
@@ -66,7 +66,7 @@ public class User extends BaseEntity {
                 .profileUrl(oauthMember.getProfileImageUrl())
                 .email(oauthMember.getEmail()) // 이메일은 OauthMember로부터 받아오거나 따로 처리
                 .role(Role.CUSTOMER) // 기본 역할 설정
-                .userStatus(UserStatus.ACTIVE)
+                .userStatus(Status.ACTIVE)
                 .ecoPoints(0)
                 .totalDiscount(0)
                 .joinType(JoinType.valueOf("KAKAO"))
@@ -93,10 +93,5 @@ public class User extends BaseEntity {
     public enum Role {
         MERCHANT, // 가게 사장
         CUSTOMER  // 소비자
-    }
-
-    public enum UserStatus {
-        ACTIVE,    // 활성 상태
-        INACTIVE   // 비활성 상태
     }
 }
