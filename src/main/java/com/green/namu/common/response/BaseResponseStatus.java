@@ -16,6 +16,8 @@ public enum BaseResponseStatus {
     /**
      * 400 : Request, Response 오류
      */
+    NOT_FOUND(false, "요청한 API 경로를 찾을 수 없습니다.", "NOT_FOUND"),
+
     STORE_NOT_FOUND(false, "해당 Store 데이터를 찾을 수 없습니다.", "STORE_NOT_FOUND"),
     MENU_NOT_FOUND(false, "해당 Menu 데이터를 찾을 수 없습니다.", "MENU_NOT_FOUND"),
     LIKE_NOT_FOUND(false, "삭제할 찜 데이터를 찾을 수 없습니다.", "LIKE_NOT_FOUND"),

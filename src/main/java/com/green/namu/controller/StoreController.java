@@ -37,7 +37,7 @@ public class StoreController {
 
     })
     @GetMapping("")
-    public BaseResponse<List<StoreSearchResponse>> search(@RequestParam("term") String term) {
+    public BaseResponse<List<StoreSearchResponse>> search(@RequestParam(value = "term", required = false) String term) {
 
         // validation
         if (term == null || term.isEmpty()) {
@@ -50,7 +50,6 @@ public class StoreController {
         } catch (BaseException e) {
             log.error("검색 중 오류 발생: e");
             return new BaseResponse<>(e.getStatus());
-
         }
     }
 }
