@@ -31,12 +31,15 @@ public enum BaseResponseStatus {
     INVALID_SORT_OPTION(false, "유효하지 않은 정렬 옵션입니다. 'normal', 'rating', 'distance', 'like', 'order', 'price' 중 하나를 사용하세요.", "INVALID_SORT_OPTION"),
     INVALID_LIKE_SORT_OPTION(false, "유효하지 않은 정렬 옵션입니다. 'normal', 'often', 'abc' 중 하나를 사용하세요.", "INVALID_LIKE_SORT_OPTION"),
     INVALID_STORE_ID(false, "유효하지 않은 가게 ID입니다.", "INVALID_STORE_ID"),
+    INVALID_MENU_ID(false, "유효하지 않은 메뉴 ID입니다.", "INVALID_MENU_ID"),
+    INVALID_PAYMENT_METHOD(false, "유효하지 않은 결제수단입니다.", "INVALID_PAYMENT_METHOD"),
     INVALID_REQUEST_DATA(false, "유효하지 않은 요청 데이터입니다.", "INVALID_REQUEST_DATA"),
     INVALID_USER_ID(false, "유효하지 않은 사용자 ID입니다.", "INVALID_USER_ID"),
 
     AUTHENTICATION_FAILED(false, "인증 정보가 유효하지 않습니다. 다시 로그인해주세요.", "AUTHENTICATION_FAILED"),
     FORBIDDEN_ACCESS(false, "해당 찜 데이터를 삭제할 권한이 없습니다.", "FORBIDDEN_ACCESS"),
     FORBIDDEN_ACCESS_MYPAGE(false, "해당 사용자 정보를 조회할 권한이 없습니다.", "FORBIDDEN_ACCESS_MYPAGE"),
+    FORBIDDEN_ACCESS_ORDER(false, "해당 주문을 요청할 권한이 없습니다.", "FORBIDDEN_ACCESS_ORDER"),
 
 
     ALREADY_LIKED_STORE(false, "이미 찜한 가게입니다.", "ALREADY_LIKED_STORE"),
@@ -48,7 +51,7 @@ public enum BaseResponseStatus {
 
     EMPTY_JWT(false, "JWT를 입력해주세요.", "EMPTY_JWT"),
     INVALID_JWT(false, "유효하지 않은 JWT입니다.", "INVALID_JWT"),
-
+    INVALID_REFRESH_TOKEN(false, "유효하지 않은 REFRESH_TOKEN입니다.", "INVALID_REFRESH_TOKEN"),
 
 
     /**

@@ -97,6 +97,10 @@ public class Store extends BaseEntity {
         menu.setStore(this);
     }
 
+    public void setOrderCount(int orderCount) {
+        this.orderCount = orderCount;
+    }
+
     // ENUM for closed_days
     public enum ClosedDays {
         MON, TUE, WED, THU, FRI, SAT, SUN
