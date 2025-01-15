@@ -25,8 +25,11 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
 
+    // TODO 1 : INVALID_REQUEST_DATA, CART_EMPTY 미구현 (1/16)
+    // TODO 2 : AUTHENTICATION_FAILED, FORBIDDEN_ACCESS_ORDER는 토큰 때문에 확인 불가 상태 (1/16)
+    // TODO 3 : 해당 가게에 없는 메뉴를 담아도 정상 처리 됨 -> 해당 가게 안에 있는 메뉴인지 확인하는 로직 추가 필요 (1/16)
+
     // 장바구니 화면에서 주문 요청 처리
-    // TODO : INVALID_REQUEST_DATA, CART_EMPTY 미구현, AUTHENTICATION_FAILED, FORBIDDEN_ACCESS_ORDER는 토큰 때문에 확인 불가 상태
     @Transactional
     public OrderResponse createOrder(Long userId, OrderRequest request) {
         // 1. 사용자 검증
