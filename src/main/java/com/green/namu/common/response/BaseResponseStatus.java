@@ -28,7 +28,7 @@ public enum BaseResponseStatus {
     SEARCH_NO_RESULTS(false, "검색 결과가 존재하지 않습니다.", "SEARCH_NO_RESULTS"),
 
     INVALID_SEARCH_QUERY(false, "검색어를 입력해주세요.", "INVALID_SEARCH_QUERY"),
-    INVALID_SORT_OPTION(false, "유효하지 않은 정렬 옵션입니다. 'normal', 'like', 'distance', 'rating', 'price' 중 하나를 사용하세요.", "INVALID_SORT_OPTION"),
+    INVALID_SORT_OPTION(false, "유효하지 않은 정렬 옵션입니다. 'normal', 'rating', 'distance', 'like', 'order', 'price' 중 하나를 사용하세요.", "INVALID_SORT_OPTION"),
     INVALID_LIKE_SORT_OPTION(false, "유효하지 않은 정렬 옵션입니다. 'normal', 'often', 'abc' 중 하나를 사용하세요.", "INVALID_LIKE_SORT_OPTION"),
     INVALID_STORE_ID(false, "유효하지 않은 가게 ID입니다.", "INVALID_STORE_ID"),
     INVALID_REQUEST_DATA(false, "유효하지 않은 요청 데이터입니다.", "INVALID_REQUEST_DATA"),
