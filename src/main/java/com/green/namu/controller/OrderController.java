@@ -7,6 +7,8 @@ import com.green.namu.dto.OrderRequest;
 import com.green.namu.dto.OrderResponse;
 import com.green.namu.service.OrderService;
 import com.green.namu.utils.JwtService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,10 +17,12 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
 @RestController
 @RequestMapping("/api/order")
 @RequiredArgsConstructor
+@Tag(name = "주문", description = "주문 관련 API")
 public class OrderController {
     private final OrderService orderService;
     private final JwtService jwtService;
 
+    @Operation(summary = "주문 요청", description = "장바구니 화면에서 주문을 요청하면, 주문을 처리하고 관련 필드 값들을 업데이트합니다.")
     @PostMapping("/{userId}")
     public BaseResponse<OrderResponse> createOrder(
             @PathVariable("userId") Long userId,
