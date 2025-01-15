@@ -88,6 +88,10 @@ public class User extends BaseEntity {
         cart.setUser(this);
     }
 
+    public void setTotalDiscount(Integer totalDiscount) {
+        this.totalDiscount = totalDiscount;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

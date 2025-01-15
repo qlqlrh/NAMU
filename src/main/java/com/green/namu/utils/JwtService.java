@@ -1,6 +1,7 @@
 package com.green.namu.utils;
 
 import com.green.namu.common.exceptions.BaseException;
+import com.green.namu.common.response.BaseResponseStatus;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -63,6 +64,21 @@ public class JwtService {
                 .compact();
     }
 
+    // AccessToken 재발급 함수
+    public String refreshAccessToken(String refreshToken) {
+        // Refresh Token 검증
+        if (!validateToken(refreshToken, false)) {
+            throw new BaseException(BaseResponseStatus.INVALID_REFRESH_TOKEN);
+        }
+
+        // Refresh Token에서 userId 추출
+        Long userId = getUserId(refreshToken, false);
+
+        // 새로운 AccessToken 생성
+        return createAccessToken(userId);
+    }
+
+
     /*
     Header에서 Authorization 으로 JWT 추출
     @return String
@@ -71,6 +87,7 @@ public class JwtService {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         return request.getHeader("Authorization");
     }
+
 
     /*
     JWT에서 userId 추출
@@ -91,4 +108,50 @@ public class JwtService {
         // userId 추출
         return claims.getBody().get("userId", Long.class);
     }
+
+    /*
+    JWT 유효성 검증
+    @param token
+    @param isAccessToken
+    @return boolean
+     */
+    public boolean validateToken(String token, boolean isAccessToken) {
+        try {
+            Jws<Claims> claims = Jwts.parser()
+                    .setSigningKey(isAccessToken ? JWT_SECRET_KEY : REFRESH_SECRET_KEY)
+                    .parseClaimsJws(token);
+
+            // 만료 여부 확인
+            return !claims.getBody().getExpiration().before(new Date());
+        } catch (Exception e) {
+            return false; // 유효하지 않은 토큰
+        }
+    }
+
+    /*
+    JWT + UserId 유효성 검증
+    @param token
+    @param isAccessToken
+    @param expectedUserId
+    @return boolean
+     */
+    public boolean validateTokenAndUser(String token, boolean isAccessToken, Long expectedUserId) {
+        try {
+            Jws<Claims> claims = Jwts.parser()
+                    .setSigningKey(isAccessToken ? JWT_SECRET_KEY : REFRESH_SECRET_KEY)
+                    .parseClaimsJws(token);
+
+            // jwt 만료 여부 확인
+            if (claims.getBody().getExpiration().before(new Date())) {
+                return false;
+            }
+
+            // userId 검증
+            Long userId = claims.getBody().get("userId", Long.class);
+            return userId != null && userId.equals(expectedUserId);
+        } catch (Exception e) {
+            return false; // 유효하지 않은 토큰
+        }
+    }
+
 }
