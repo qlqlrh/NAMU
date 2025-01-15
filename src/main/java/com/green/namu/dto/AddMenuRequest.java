@@ -3,7 +3,7 @@ package com.green.namu.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.green.namu.domain.Category;
 import com.green.namu.domain.Menu;
-import com.green.namu.domain.MenuStatus;
+import com.green.namu.domain.status.MenuStatus;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
