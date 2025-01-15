@@ -2,9 +2,8 @@ package com.green.namu.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.green.namu.domain.Menu;
-import com.green.namu.domain.MenuStatus;
+import com.green.namu.domain.status.MenuStatus;
 import com.green.namu.dto.AddMenuRequest;
-import com.green.namu.dto.MenuSaveResponse;
 import com.green.namu.repository.MenuRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

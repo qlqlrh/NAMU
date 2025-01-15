@@ -1,13 +1,12 @@
 package com.green.namu.domain;
 
 import com.green.namu.common.entity.BaseEntity;
+import com.green.namu.domain.status.Status;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.JoinType;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -59,6 +58,12 @@ public class User extends BaseEntity {
     @Column(name = "user_status", nullable = false)
     private Status userStatus; // ACTIVE or INACTIVE
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cart> carts = new ArrayList<>();
+
     // 추가 생성자 (OauthMember 기반 User 생성)
     public static User fromOauthMember(OauthMember oauthMember) {
         return User.builder()
@@ -71,6 +76,16 @@ public class User extends BaseEntity {
                 .totalDiscount(0)
                 .joinType(JoinType.valueOf("KAKAO"))
                 .build();
+    }
+
+    public void addOrder(Order order) {
+        this.orders.add(order);
+        order.setUser(this);
+    }
+
+    public void addCart(Cart cart) {
+        this.carts.add(cart);
+        cart.setUser(this);
     }
 
     @Override

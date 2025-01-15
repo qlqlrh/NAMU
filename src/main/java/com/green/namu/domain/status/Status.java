@@ -1,4 +1,4 @@
-package com.green.namu.domain;
+package com.green.namu.domain.status;
 
 public enum Status {
         ACTIVE,    // 활성 상태

@@ -1,4 +1,4 @@
-package com.green.namu.domain;
+package com.green.namu.domain.status;
 
 public enum MenuStatus {
     PREPARING, // 메뉴 준비 중

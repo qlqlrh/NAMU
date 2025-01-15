@@ -2,6 +2,7 @@ package com.green.namu.domain;
 
 import com.green.namu.common.converter.JpaJsonConverter;
 import com.green.namu.common.entity.BaseEntity;
+import com.green.namu.domain.status.Status;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
