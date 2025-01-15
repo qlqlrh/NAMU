@@ -34,18 +34,24 @@ public class StoreController {
             @ApiResponse(responseCode = "404", description = "SEARCH_NO_RESULTS"),
             @ApiResponse(responseCode = "400", description = "INVALID_SEARCH_QUERY"),
             @ApiResponse(responseCode = "500", description = "INTERNAL_SERVER_ERROR"),
-
     })
     @GetMapping("")
-    public BaseResponse<List<StoreSearchResponse>> search(@RequestParam(value = "term", required = false) String term) {
+    public BaseResponse<List<StoreSearchResponse>> searchStores(
+            @RequestParam(value = "term", required = false) String term,
+            @RequestParam(value = "sort", defaultValue = "normal") String option) {
 
         // validation
         if (term == null || term.isEmpty()) {
             throw new BaseException(BaseResponseStatus.INVALID_SEARCH_QUERY);
         }
 
+        List<String> validOptions = List.of("normal", "rating", "distance", "like", "order", "price");
+        if (!validOptions.contains(option)) {
+            throw new BaseException(BaseResponseStatus.INVALID_SORT_OPTION);
+        }
+
         try {
-            List<StoreSearchResponse> searchResults = storeService.searchStoresByTerm(term);
+            List<StoreSearchResponse> searchResults = storeService.searchStores(term, option);
             return new BaseResponse<>(searchResults);
         } catch (BaseException e) {
             log.error("검색 중 오류 발생: e");

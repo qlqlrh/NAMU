@@ -64,6 +64,10 @@ public class Store extends BaseEntity {
     @ColumnDefault("0")
     private int reviewCount;
 
+    @Column(name = "order_count", nullable = false)
+    @ColumnDefault("0")
+    private int orderCount;
+
     @Column(name = "ceo_name", nullable = false, length = 20)
     private String ceoName;
 
