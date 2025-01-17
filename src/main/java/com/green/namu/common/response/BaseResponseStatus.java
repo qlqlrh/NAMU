@@ -35,6 +35,7 @@ public enum BaseResponseStatus {
     INVALID_PAYMENT_METHOD(false, "유효하지 않은 결제수단입니다.", "INVALID_PAYMENT_METHOD"),
     INVALID_REQUEST_DATA(false, "유효하지 않은 요청 데이터입니다.", "INVALID_REQUEST_DATA"),
     INVALID_USER_ID(false, "유효하지 않은 사용자 ID입니다.", "INVALID_USER_ID"),
+    INVALID_USER_STATUS(false, "비활성화된 사용자 ID입니다.", "INVALID_USER_STATUS"),
 
     AUTHENTICATION_FAILED(false, "인증 정보가 유효하지 않습니다. 다시 로그인해주세요.", "AUTHENTICATION_FAILED"),
     FORBIDDEN_ACCESS(false, "해당 찜 데이터를 삭제할 권한이 없습니다.", "FORBIDDEN_ACCESS"),
@@ -58,7 +59,6 @@ public enum BaseResponseStatus {
      * 500 :  Database, Server 오류
      */
     INTERNAL_SERVER_ERROR(false, "서버 내부 오류로 인해 데이터를 가져올 수 없습니다. 잠시 후 다시 시도해주세요.",  "INTERNAL_SERVER_ERROR");
-
 
     private final boolean isSuccess;
     private final String message;

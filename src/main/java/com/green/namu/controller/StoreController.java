@@ -54,7 +54,7 @@ public class StoreController {
             List<StoreSearchResponse> searchResults = storeService.searchStores(term, option);
             return new BaseResponse<>(searchResults);
         } catch (BaseException e) {
-            log.error("검색 중 오류 발생: e");
+            log.error("검색 중 오류 발생: ", e);
             return new BaseResponse<>(e.getStatus());
         }
     }
