@@ -29,8 +29,6 @@ public class OrderController {
             @RequestBody OrderRequest request,
             @RequestHeader("Authorization") String token) {
 
-        log.info("token: " + token);
-
         // JWT 검증 및 사용자 ID 확인
         if (!jwtService.validateTokenAndUser(token, true, userId)) {
             throw new BaseException(BaseResponseStatus.AUTHENTICATION_FAILED);

@@ -24,6 +24,7 @@ public enum BaseResponseStatus {
     USER_OR_MENU_NOT_FOUND(false, "사용자 또는 메뉴를 찾을 수 없습니다.", "USER_OR_MENU_NOT_FOUND"),
     CART_ITEM_NOT_FOUND(false, "수정할 장바구니 데이터를 찾을 수 없습니다.", "CART_ITEM_NOT_FOUND"),
 
+    MENU_NOT_IN_STORE(false, "해당 가게에 존재하지 않는 메뉴입니다.", "MENU_NOT_IN_STORE"),
 
     SEARCH_NO_RESULTS(false, "검색 결과가 존재하지 않습니다.", "SEARCH_NO_RESULTS"),
 
