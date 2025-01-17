@@ -25,31 +25,48 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
 
-    // TODO 1 : INVALID_REQUEST_DATA, CART_EMPTY 미구현 (1/16)
-    // TODO 2 : AUTHENTICATION_FAILED, FORBIDDEN_ACCESS_ORDER는 토큰 때문에 확인 불가 상태 (1/16)
-    // TODO 3 : 해당 가게에 없는 메뉴를 담아도 정상 처리 됨 -> 해당 가게 안에 있는 메뉴인지 확인하는 로직 추가 필요 (1/16)
-
     // 장바구니 화면에서 주문 요청 처리
     @Transactional
     public OrderResponse createOrder(Long userId, OrderRequest request) {
-        // 1. 사용자 검증
+
+        // 1. 요청 데이터 검증 (INVALID_REQUEST_DATA)
+        if (request.getStoreId() == null || request.getMenus() == null || request.getMenus().isEmpty() ||
+                request.getPaymentMethod() == null || request.getTotalPrice() < 0) {
+            throw new BaseException(BaseResponseStatus.INVALID_REQUEST_DATA);
+        }
+
+        // 2. 사용자 검증
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.INVALID_USER_ID));
 
-        // 2. 가게 검증
+        // 3. 가게 검증
         Store store = storeRepository.findById(request.getStoreId())
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.INVALID_STORE_ID));
 
-        // 3. 결제 수단 검증
+        // 4. 결제 수단 검증
         List<String> validPaymentMethods = List.of("현장결제"); // TODO: 결제 기능 추가 되면, 리스트 값 추가 -> List.of("현장결제", "카드결제", "계좌이체");
         if (!validPaymentMethods.contains(request.getPaymentMethod())) {
             throw new BaseException(BaseResponseStatus.INVALID_PAYMENT_METHOD);
         }
 
-        // 4. 총 할인 금액 계산 및 주문한 세트 이름 저장
+        // 5. 가게 메뉴 검증
+        for (OrderRequest.OrderMenuRequest menuRequest : request.getMenus()) {
+            Menu menu = menuRepository.findById(menuRequest.getMenuId())
+                    .orElseThrow(() -> new BaseException(BaseResponseStatus.INVALID_MENU_ID));
+
+            if (!menu.getStore().getStoreId().equals(store.getStoreId())) {
+                throw new BaseException(BaseResponseStatus.MENU_NOT_IN_STORE); // 새로운 에러 상태 추가 필요
+            }
+        }
+
+        // 6. 장바구니 검증 및 메뉴 데이터 검증, 총 할인 금액 계산, 주문한 세트 이름 저장
         int totalDiscount = 0;
         StringBuilder setNameBuilder = new StringBuilder();
         for (OrderRequest.OrderMenuRequest menuRequest : request.getMenus()) {
+            if (menuRequest.getCartQuantity() == 0) {
+                throw new BaseException(BaseResponseStatus.CART_EMPTY);
+            }
+
             Menu menu = menuRepository.findById(menuRequest.getMenuId())
                     .orElseThrow(() -> new BaseException(BaseResponseStatus.INVALID_MENU_ID));
 
@@ -61,10 +78,10 @@ public class OrderService {
             setNameBuilder.append(menu.getSetName());
         }
 
-        // 5. User의 total_discount 값 업데이트
+        // 7. User의 total_discount 값 업데이트
         user.setTotalDiscount(user.getTotalDiscount() + totalDiscount);
 
-        // 6. 주문 생성
+        // 8. 주문 생성
         Order order = Order.builder()
                 .user(user)
                 .store(store)
@@ -74,13 +91,13 @@ public class OrderService {
                 .build();
         orderRepository.save(order);
 
-        // 7. Store의 order_count 값 증가
+        // 9. Store의 order_count 값 증가
         store.setOrderCount(store.getOrderCount() + 1);
 
-        // 8. 장바구니 초기화 (status를 INACTIVE로 변경)
+        // 10. 장바구니 초기화 (status를 INACTIVE로 변경)
         cartRepository.updateStatusByUserId(userId); // TODO : 이 과정이 꼭 필요한 건가?
 
-        // 9. 응답 생성
+        // 11. 응답 생성
         return new OrderResponse(
                 order.getOrderId(),
                 order.getStatus().toString(),
