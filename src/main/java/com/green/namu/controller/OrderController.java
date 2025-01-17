@@ -29,6 +29,8 @@ public class OrderController {
             @RequestBody OrderRequest request,
             @RequestHeader("Authorization") String token) {
 
+        log.info("token: " + token);
+
         // JWT 검증 및 사용자 ID 확인
         if (!jwtService.validateTokenAndUser(token, true, userId)) {
             throw new BaseException(BaseResponseStatus.AUTHENTICATION_FAILED);
@@ -38,7 +40,7 @@ public class OrderController {
             OrderResponse response = orderService.createOrder(userId, request);
             return new BaseResponse<>(response);
         } catch (BaseException e) {
-            log.error("주문 처리 중 오류 발생: e");
+            log.error("주문 처리 중 오류 발생: ", e);
             return new BaseResponse<>(e.getStatus());
         }
     }

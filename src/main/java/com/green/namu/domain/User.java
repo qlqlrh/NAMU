@@ -58,6 +58,9 @@ public class User extends BaseEntity {
     @Column(name = "user_status", nullable = false)
     private Status userStatus; // ACTIVE or INACTIVE
 
+    @Column(name = "refresh_token") // 토큰 관리를 위해 추가
+    private String refreshToken;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
@@ -104,6 +107,11 @@ public class User extends BaseEntity {
     public int hashCode() {
         return Objects.hash(userId);
     }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
     public enum JoinType {
         INAPP, // 자체 이메일 가입
         KAKAO  // 카카오 가입
