@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MenuReadResponse {
+public class MenuReadRes {
 
     @JsonProperty("set_name")
     private String setName;

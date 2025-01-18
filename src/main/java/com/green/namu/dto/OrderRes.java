@@ -1,7 +1,6 @@
 package com.green.namu.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.green.namu.domain.status.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderResponse {  // 주문서에 보일 내용
+public class OrderRes {  // 주문서에 보일 내용
 
     @JsonProperty("order_id")
     private Long orderId;

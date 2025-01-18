@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddMenuRequest {
+public class AddMenuReq {
     // 컨트롤러에서 요청한 본문을 받아올 객체 (DTO: Data Transfer Object)
     // status, id는 포함하지 않음
 

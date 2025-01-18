@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StoreSearchResponse {
+public class StoreSearchRes {
     @JsonProperty("store_id")
     private Long storeId;
 
@@ -40,10 +40,10 @@ public class StoreSearchResponse {
     private int location; // 미터 단위 거리
 
     @JsonProperty("set_names")
-    private List<MenuSearchResponse> setNames;
+    private List<MenuSearchRes> setNames;
 
-    public static StoreSearchResponse fromEntity(Store store, List<MenuSearchResponse> menuSets, int location) {
-        return new StoreSearchResponse(
+    public static StoreSearchRes fromEntity(Store store, List<MenuSearchRes> menuSets, int location) {
+        return new StoreSearchRes(
                 store.getStoreId(),
                 store.getStoreName(),
                 store.getPickupTime(),

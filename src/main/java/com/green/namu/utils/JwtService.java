@@ -132,26 +132,19 @@ public class JwtService {
     JWT + UserId 유효성 검증
     @param token
     @param isAccessToken
-    @param expectedUserId
-    @return boolean
+    @return expectedUserId
      */
-    public boolean validateTokenAndUser(String token, boolean isAccessToken, Long expectedUserId) {
+    public Long getUserIdOrThrow(String token, boolean isAccessToken) {
+        // JWT 유효성 검증
+        if (!validateToken(token, isAccessToken)) {
+            throw new BaseException(BaseResponseStatus.AUTHENTICATION_FAILED);
+        }
+
+        // JWT에서 사용자 ID 추출
         try {
-            Jws<Claims> claims = Jwts.parser()
-                    .setSigningKey(isAccessToken ? JWT_SECRET_KEY : REFRESH_SECRET_KEY)
-                    .parseClaimsJws(token);
-
-            // jwt 만료 여부 확인
-            if (claims.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-
-            // userId 검증
-            Long userId = claims.getBody().get("userId", Long.class);
-            return userId != null && userId.equals(expectedUserId);
-        } catch (Exception e) {
-            return false; // 유효하지 않은 토큰
+            return getUserId(token, isAccessToken);
+        } catch (BaseException e) {
+            throw new BaseException(BaseResponseStatus.AUTHENTICATION_FAILED);
         }
     }
-
 }

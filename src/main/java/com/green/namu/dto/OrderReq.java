@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderRequest { // 장바구니 화면에서 주문 버튼 눌렀을 때 요청오는 데이터
+public class OrderReq { // 장바구니 화면에서 주문 버튼 눌렀을 때 요청오는 데이터
     @JsonProperty("store_id")
     private Long storeId;
 

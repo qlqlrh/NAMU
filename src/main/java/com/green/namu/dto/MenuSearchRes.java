@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuSearchResponse {
+public class MenuSearchRes {
     @JsonProperty("set_name")
     private String setName;
 
