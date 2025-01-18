@@ -28,13 +28,16 @@ public class OrderController {
             @PathVariable("userId") Long userId,
             @RequestBody OrderReq request,
             @RequestHeader("Authorization") String token) {
-//
-//        // JWT 검증 및 사용자 ID 확인
-//        if (!jwtService.validateTokenAndUser(token, true, userId)) {
-//            throw new BaseException(BaseResponseStatus.AUTHENTICATION_FAILED);
-//        }
 
         try {
+            // JWT 검증 및 사용자 ID 추출
+            Long tokenUserId = jwtService.getUserIdOrThrow(token, true);
+
+            // 요청한 userId와 JWT userId 비교
+            if (!userId.equals(tokenUserId)) {
+                throw new BaseException(BaseResponseStatus.FORBIDDEN_ACCESS_MYPAGE);
+            }
+
             OrderRes response = orderService.createOrder(userId, request);
             return new BaseResponse<>(response);
         } catch (BaseException e) {
