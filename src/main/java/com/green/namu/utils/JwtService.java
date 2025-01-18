@@ -1,11 +1,13 @@
 package com.green.namu.utils;
 
 import com.green.namu.common.exceptions.BaseException;
+import com.green.namu.service.TokenBlacklistService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -90,5 +92,28 @@ public class JwtService {
 
         // userId 추출
         return claims.getBody().get("userId", Long.class);
+    }
+
+    @Autowired private
+    TokenBlacklistService tokenBlacklistService;
+
+    public void invalidateToken(String token) {
+        tokenBlacklistService.blacklistToken(token);
+    }
+
+    public boolean isTokenValid(String token) {
+        if (tokenBlacklistService.isTokenBlacklisted(token)) {
+            return false;
+        }
+
+        // JWT 파싱 및 검증
+        Jws<Claims> claims;
+        try {
+            claims = Jwts.parser()
+                    .setSigningKey(JWT_SECRET_KEY)
+                    .parseClaimsJws(token);
+        } catch (Exception ignored) {
+            throw new BaseException(INVALID_JWT);}
+        return true;
     }
 }

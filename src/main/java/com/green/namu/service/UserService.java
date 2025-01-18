@@ -2,6 +2,7 @@ package com.green.namu.service;
 
 import com.green.namu.domain.OauthMember;
 import com.green.namu.domain.User;
+import com.green.namu.dto.LoginDto;
 import com.green.namu.dto.RegisterDto;
 import com.green.namu.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -28,7 +29,7 @@ public class  UserService {
 
     @Transactional
     public User register(RegisterDto registerDto) {
-        User user = User.createUser(registerDto.getEmail(), registerDto.getPassword(), registerDto.getUserName());
+        User user = User.createUser(registerDto.getUserName(), registerDto.getPassword(), registerDto.getEmail());
         return userRepository.save(user);
     }
 
@@ -43,5 +44,17 @@ public class  UserService {
             return new IllegalArgumentException("User ID를 찾을 수 없습니다.");
         });
     }
+
+    @Transactional
+    public User login(LoginDto loginDto) {
+        User user = userRepository.findByEmail(loginDto.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+
+        if (!user.getPassword().equals(loginDto.getPassword())) {
+            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+        }
+        return user;
+    }
+
 
 }

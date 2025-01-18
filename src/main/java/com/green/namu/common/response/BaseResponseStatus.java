@@ -32,6 +32,7 @@ public enum BaseResponseStatus {
     INVALID_STORE_ID(false, "유효하지 않은 가게 ID입니다.", "INVALID_STORE_ID"),
     INVALID_REQUEST_DATA(false, "유효하지 않은 요청 데이터입니다.", "INVALID_REQUEST_DATA"),
     INVALID_USER_ID(false, "유효하지 않은 사용자 ID입니다.", "INVALID_USER_ID"),
+    INVALID_PASSWORD(false, "유효하지 않은 비밀번호입니다.", "INVALID_PASSWORD"),
 
     AUTHENTICATION_FAILED(false, "인증 정보가 유효하지 않습니다. 다시 로그인해주세요.", "AUTHENTICATION_FAILED"),
     FORBIDDEN_ACCESS(false, "해당 찜 데이터를 삭제할 권한이 없습니다.", "FORBIDDEN_ACCESS"),

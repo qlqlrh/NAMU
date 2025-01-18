@@ -102,9 +102,15 @@ public class User extends BaseEntity {
 
     public static User createUser(String username, String password, String email) {
         return User.builder()
-                .userName(email)
-                .password(password)
                 .userName(username)
+                .password(password)
+                .email(email)
+                .profileUrl("default-profile-url") // 기본 프로필 URL 설정
+                .ecoPoints(0) // 기본값 0 설정
+                .totalDiscount(0) // 기본값 0 설정
+                .joinType(JoinType.INAPP)
+                .role(Role.CUSTOMER)
+                .userStatus(UserStatus.ACTIVE)
                 .build();
     }
 }
