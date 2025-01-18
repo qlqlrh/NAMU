@@ -4,8 +4,8 @@ import com.green.namu.common.exceptions.BaseException;
 import com.green.namu.common.response.BaseResponseStatus;
 import com.green.namu.domain.Menu;
 import com.green.namu.domain.Store;
-import com.green.namu.dto.MenuSearchResponse;
-import com.green.namu.dto.StoreSearchResponse;
+import com.green.namu.dto.MenuSearchRes;
+import com.green.namu.dto.StoreSearchRes;
 import com.green.namu.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class StoreService {
             "디저트", "DESSERT"
     );
 
-    public List<StoreSearchResponse> searchStores(String term, String option) {
+    public List<StoreSearchRes> searchStores(String term, String option) {
         // 검색어가 카테고리인 경우, 영어 이름으로 변환 (해당되지 않을 경우 그대로 사용)
         String translatedTerm = CATEGORY_TRANSLATIONS.getOrDefault(term, term);
 
@@ -65,12 +65,12 @@ public class StoreService {
         return stores.stream()
                 .map(store -> {
                     // Store에 속한 메뉴 리스트를 MenuSearchResponse 형태로 반환
-                    List<MenuSearchResponse> menuSets = store.getMenus().stream()
-                            .map(menu -> new MenuSearchResponse(menu.getSetName(), menu.getMenuNames()))
+                    List<MenuSearchRes> menuSets = store.getMenus().stream()
+                            .map(menu -> new MenuSearchRes(menu.getSetName(), menu.getMenuNames()))
                             .collect(Collectors.toList());
 
                     // StoreSearchResponse 객체 생성
-                    return StoreSearchResponse.fromEntity(store, menuSets, 1900); // TODO: 거리는 일단 더미 값
+                    return StoreSearchRes.fromEntity(store, menuSets, 1900); // TODO: 거리는 일단 더미 값
                 })
                 .collect(Collectors.toList());
     }

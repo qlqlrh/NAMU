@@ -7,8 +7,8 @@ import com.green.namu.domain.Order;
 import com.green.namu.domain.Store;
 import com.green.namu.domain.User;
 import com.green.namu.domain.status.OrderStatus;
-import com.green.namu.dto.OrderRequest;
-import com.green.namu.dto.OrderResponse;
+import com.green.namu.dto.OrderReq;
+import com.green.namu.dto.OrderRes;
 import com.green.namu.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class OrderService {
 
     // 장바구니 화면에서 주문 요청 처리
     @Transactional
-    public OrderResponse createOrder(Long userId, OrderRequest request) {
+    public OrderRes createOrder(Long userId, OrderReq request) {
 
         // 1. 요청 데이터 검증 (INVALID_REQUEST_DATA)
         if (request.getStoreId() == null || request.getMenus() == null || request.getMenus().isEmpty() ||
@@ -50,7 +50,7 @@ public class OrderService {
         }
 
         // 5. 가게 메뉴 검증
-        for (OrderRequest.OrderMenuRequest menuRequest : request.getMenus()) {
+        for (OrderReq.OrderMenuRequest menuRequest : request.getMenus()) {
             Menu menu = menuRepository.findById(menuRequest.getMenuId())
                     .orElseThrow(() -> new BaseException(BaseResponseStatus.INVALID_MENU_ID));
 
@@ -62,7 +62,7 @@ public class OrderService {
         // 6. 장바구니 검증 및 메뉴 데이터 검증, 총 할인 금액 계산, 주문한 세트 이름 저장
         int totalDiscount = 0;
         StringBuilder setNameBuilder = new StringBuilder();
-        for (OrderRequest.OrderMenuRequest menuRequest : request.getMenus()) {
+        for (OrderReq.OrderMenuRequest menuRequest : request.getMenus()) {
             if (menuRequest.getCartQuantity() == 0) {
                 throw new BaseException(BaseResponseStatus.CART_EMPTY);
             }
@@ -98,7 +98,7 @@ public class OrderService {
         cartRepository.updateStatusByUserId(userId); // TODO : 이 과정이 꼭 필요한 건가?
 
         // 11. 응답 생성
-        return new OrderResponse(
+        return new OrderRes(
                 order.getOrderId(),
                 order.getStatus().toString(),
                 setNameBuilder.toString(),
