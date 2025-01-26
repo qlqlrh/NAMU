@@ -22,12 +22,23 @@ import java.util.List;
 import static org.hibernate.query.sqm.tree.SqmNode.log;
 
 @RestController
-@RequestMapping("/search")
 @RequiredArgsConstructor
-@Tag(name = "가게 검색", description = "가게 검색 관련 API")
+@Tag(name = "가게", description = "가게 관련 API")
 public class StoreController {
 
     private final StoreService storeService;
+
+    @Operation(summary = "전체 가게 조회", description = "등록된 전체 가게를 조회합니다.")
+    @GetMapping("/store/list")
+    public List<StoreResponseDto> getAllStores() {
+        return storeService.getAllStores();
+    }
+
+    @Operation(summary = "특정 가게 조회", description = "특정 가게 하나만을 조회합니다.")
+    @GetMapping("/store/{storeId}")
+    public StoreResponseDto getStoreById(@PathVariable Long storeId) {
+        return storeService.getStoreById(storeId);
+    }
 
     @Operation(summary = "가게 검색", description = "카테고리, 가게 이름, 메뉴 이름, 세트 이름을 입력받아 검색 결과(가게리스트)를 반환합니다.")
     @ApiResponses({
@@ -36,7 +47,7 @@ public class StoreController {
             @ApiResponse(responseCode = "400", description = "INVALID_SEARCH_QUERY"),
             @ApiResponse(responseCode = "500", description = "INTERNAL_SERVER_ERROR"),
     })
-    @GetMapping("")
+    @GetMapping("/search")
     public BaseResponse<List<StoreSearchRes>> searchStores(
             @RequestParam(value = "term", required = false) String term,
             @RequestParam(value = "sort", defaultValue = "normal") String option) {
@@ -59,15 +70,4 @@ public class StoreController {
             return new BaseResponse<>(e.getStatus());
         }
     }
-
-    @GetMapping("/list")
-    public List<StoreResponseDto> getAllStores() {
-        return storeService.getAllStores();
-    }
-
-    @GetMapping("/{storeId}")
-    public StoreResponseDto getStoreById(@PathVariable Long storeId) {
-        return storeService.getStoreById(storeId);
-    }
-
 }

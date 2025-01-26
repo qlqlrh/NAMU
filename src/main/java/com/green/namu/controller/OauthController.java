@@ -5,6 +5,7 @@ import com.green.namu.common.response.BaseResponse;
 import com.green.namu.domain.OauthServerType;
 import com.green.namu.dto.PostLoginRes;
 import com.green.namu.service.OauthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -15,6 +16,7 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
 @RequiredArgsConstructor
 @RequestMapping("/oauth")
 @RestController
+@Tag(name = "소셜 로그인", description = "소셜 로그인 관련 API")
 public class OauthController {
 
     private final OauthService oauthService;

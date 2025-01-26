@@ -22,7 +22,7 @@ import static org.hibernate.query.sqm.tree.SqmNode.log;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "사용자 컨트롤러", description = "사용자 관련 API")
+@Tag(name = "사용자", description = "사용자 관련 API")
 public class UserController {
     private final UserService userService;
     private final JwtService jwtService;
