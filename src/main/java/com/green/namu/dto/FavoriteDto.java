@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class FavoriteDto {
     private Long userId;
     private Long storeId;
+    private boolean isFavorite;
 }
 

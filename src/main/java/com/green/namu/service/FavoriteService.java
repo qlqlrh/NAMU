@@ -21,7 +21,7 @@ public class FavoriteService {
 
     public List<FavoriteDto> getAllFavorites(Long userId) {
         return favoriteRepository.findAllByUserUserId(userId).stream()
-                .map(favorite -> new FavoriteDto(favorite.getUser().getUserId(), favorite.getStore().getStoreId()))
+                .map(favorite -> new FavoriteDto(favorite.getUser().getUserId(), favorite.getStore().getStoreId(), favorite.isFavorite()))
                 .collect(Collectors.toList());
     }
 
