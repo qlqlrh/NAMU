@@ -70,7 +70,7 @@ public class OrderService {
             Menu menu = menuRepository.findById(menuRequest.getMenuId())
                     .orElseThrow(() -> new BaseException(BaseResponseStatus.INVALID_MENU_ID));
 
-            totalDiscount += (menu.getMenuPrice() - menu.getMenuDiscountPrice() * menuRequest.getCartQuantity());
+            totalDiscount += (menu.getMenuPrice() * menuRequest.getCartQuantity() - menu.getMenuDiscountPrice() * menuRequest.getCartQuantity());
 
             if (!setNameBuilder.isEmpty()) {
                 setNameBuilder.append(", ");
