@@ -84,13 +84,16 @@ public class Store extends BaseEntity {
     @Column(name = "country_of_origin", columnDefinition = "TEXT", nullable = false)
     private String countryOfOrigin;
 
-    @Column(name = "is_open", nullable = false)
+    @Column(name = "is_open", nullable = true)
+    @ColumnDefault("true")
     private boolean isOpen;
 
-    @Column(name = "min_price", nullable = false)
+    @Column(name = "min_price", nullable = true)
+    @ColumnDefault("0")
     private int minPrice;
 
-    @Column(name = "location", nullable = false)
+    @Column(name = "location", nullable = true)
+    @ColumnDefault("10")
     private int location;
 
     @Enumerated(EnumType.STRING)
