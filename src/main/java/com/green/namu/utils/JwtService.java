@@ -2,11 +2,13 @@ package com.green.namu.utils;
 
 import com.green.namu.common.exceptions.BaseException;
 import com.green.namu.common.response.BaseResponseStatus;
+import com.green.namu.service.TokenBlacklistService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -25,6 +27,9 @@ public class JwtService {
 
     @Value("${custom.jwt.refreshSecretKey}")
     private String REFRESH_SECRET_KEY;
+
+    @Autowired private
+    TokenBlacklistService tokenBlacklistService;
 
     // Access Token 유효기간: 15분
     private static final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 15;
@@ -78,7 +83,6 @@ public class JwtService {
         return createAccessToken(userId);
     }
 
-
     /*
     Header에서 Authorization 으로 JWT 추출
     @return String
@@ -87,7 +91,6 @@ public class JwtService {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         return request.getHeader("Authorization");
     }
-
 
     /*
     JWT에서 userId 추출
@@ -146,5 +149,25 @@ public class JwtService {
         } catch (BaseException e) {
             throw new BaseException(BaseResponseStatus.AUTHENTICATION_FAILED);
         }
+    }
+
+    public void invalidateToken(String token) {
+        tokenBlacklistService.blacklistToken(token);
+    }
+
+    public boolean isTokenValid(String token) {
+        if (tokenBlacklistService.isTokenBlacklisted(token)) {
+            return false;
+        }
+
+        // JWT 파싱 및 검증
+        Jws<Claims> claims;
+        try {
+            claims = Jwts.parser()
+                    .setSigningKey(JWT_SECRET_KEY)
+                    .parseClaimsJws(token);
+        } catch (Exception ignored) {
+            throw new BaseException(INVALID_JWT);}
+        return true;
     }
 }

@@ -9,7 +9,7 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+		languageVersion = JavaLanguageVersion.of(21)
 	}
 }
 
@@ -30,8 +30,8 @@ dependencies {
 
 	// Lombok
 	implementation ('org.projectlombok:lombok')
-	compileOnly ('org.projectlombok:lombok:1.18.24')
-	annotationProcessor ('org.projectlombok:lombok:1.18.24')
+	compileOnly ('org.projectlombok:lombok:1.18.32')
+	annotationProcessor ('org.projectlombok:lombok:1.18.32')
 
 	// Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -69,6 +69,7 @@ dependencies {
 	// JSON 처리 관련 추가 라이브러리
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
 	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
+	implementation 'io.netty:netty-resolver-dns-native-macos:4.1.97.Final:osx-aarch_64'
 
 }
 

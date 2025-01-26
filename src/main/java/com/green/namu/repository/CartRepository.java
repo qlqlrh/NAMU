@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
-
     // 주문 완료 후, 해당 cart 레코드 비활성화 처리
     @Modifying
     @Query("UPDATE Cart c SET c.status = 'INACTIVE' WHERE c.user.userId = :userId")

@@ -1,5 +1,6 @@
 package com.green.namu.domain;
 
+<<<<<<< HEAD
 import com.green.namu.common.converter.JpaJsonConverter;
 import com.green.namu.common.entity.BaseEntity;
 import com.green.namu.domain.status.Status;
@@ -104,5 +105,46 @@ public class Store extends BaseEntity {
     // ENUM for closed_days
     public enum ClosedDays {
         MON, TUE, WED, THU, FRI, SAT, SUN
+=======
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Store {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long storeId;
+
+    private String storeName;
+
+    @Enumerated(EnumType.STRING)
+    private StoreCategory storeCategory;
+
+    private boolean isOpen;
+
+    private String pickupTimes;
+
+    private int minPrice;
+
+    private int reviewCount;
+
+    private int orderCount;
+
+    private double storeRating;
+
+    private int location;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SetName> setNames;
+
+    public String getStoreCategoryName() {
+        return this.storeCategory.name();
+>>>>>>> origin/master
     }
 }

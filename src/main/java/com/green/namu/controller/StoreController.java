@@ -1,5 +1,6 @@
 package com.green.namu.controller;
 
+<<<<<<< HEAD
 
 import com.green.namu.common.exceptions.BaseException;
 import com.green.namu.common.response.BaseResponse;
@@ -14,10 +15,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+=======
+import com.green.namu.dto.StoreResponseDto;
+import com.green.namu.service.StoreService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+>>>>>>> origin/master
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import static org.hibernate.query.sqm.tree.SqmNode.log;
 
 @RestController
@@ -59,3 +69,21 @@ public class StoreController {
         }
     }
 }
+=======
+@RestController
+@RequestMapping("/store")
+@RequiredArgsConstructor
+public class StoreController {
+    private final StoreService storeService;
+
+    @GetMapping("/list")
+    public List<StoreResponseDto> getAllStores() {
+        return storeService.getAllStores();
+    }
+
+    @GetMapping("/{storeId}")
+    public StoreResponseDto getStoreById(@PathVariable Long storeId) {
+        return storeService.getStoreById(storeId);
+    }
+}
+>>>>>>> origin/master

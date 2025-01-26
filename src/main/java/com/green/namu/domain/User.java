@@ -1,7 +1,6 @@
 package com.green.namu.domain;
 
 import com.green.namu.common.entity.BaseEntity;
-import com.green.namu.domain.status.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +11,7 @@ import java.util.Objects;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
@@ -56,7 +55,7 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status", nullable = false)
-    private Status userStatus; // ACTIVE or INACTIVE
+    private UserStatus userStatus; // ACTIVE or INACTIVE
 
     @Column(name = "refresh_token") // 토큰 관리를 위해 추가
     private String refreshToken;
@@ -74,13 +73,12 @@ public class User extends BaseEntity {
                 .profileUrl(oauthMember.getProfileImageUrl())
                 .email(oauthMember.getEmail()) // 이메일은 OauthMember로부터 받아오거나 따로 처리
                 .role(Role.CUSTOMER) // 기본 역할 설정
-                .userStatus(Status.ACTIVE)
+                .userStatus(UserStatus.ACTIVE)
                 .ecoPoints(0)
                 .totalDiscount(0)
                 .joinType(JoinType.valueOf("KAKAO"))
                 .build();
     }
-
     public void addOrder(Order order) {
         this.orders.add(order);
         order.setUser(this);
@@ -111,7 +109,6 @@ public class User extends BaseEntity {
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
-
     public enum JoinType {
         INAPP, // 자체 이메일 가입
         KAKAO  // 카카오 가입
@@ -120,5 +117,24 @@ public class User extends BaseEntity {
     public enum Role {
         MERCHANT, // 가게 사장
         CUSTOMER  // 소비자
+    }
+
+    public enum UserStatus {
+        ACTIVE,    // 활성 상태
+        INACTIVE   // 비활성 상태
+    }
+
+    public static User createUser(String username, String password, String email) {
+        return User.builder()
+                .userName(username)
+                .password(password)
+                .email(email)
+                .profileUrl("default-profile-url") // 기본 프로필 URL 설정
+                .ecoPoints(0) // 기본값 0 설정
+                .totalDiscount(0) // 기본값 0 설정
+                .joinType(JoinType.INAPP)
+                .role(Role.CUSTOMER)
+                .userStatus(UserStatus.ACTIVE)
+                .build();
     }
 }

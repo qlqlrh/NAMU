@@ -2,8 +2,14 @@ package com.green.namu.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.green.namu.domain.Menu;
+<<<<<<< HEAD
 import com.green.namu.domain.status.MenuStatus;
 import com.green.namu.dto.AddMenuReq;
+=======
+import com.green.namu.domain.MenuStatus;
+import com.green.namu.dto.AddMenuRequest;
+import com.green.namu.dto.MenuSaveResponse;
+>>>>>>> origin/master
 import com.green.namu.repository.MenuRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -61,7 +67,11 @@ class MenuApiControllerTest {
         final Boolean popularity = true;
         final String menuDetail = "애플 와플: ~~, 콘치폭 핫도그: ~~";
         final String menuCategory = "베이커리";
+<<<<<<< HEAD
         final AddMenuReq userRequest = new AddMenuReq(setName, menuNames, menuPrice, menuDiscountPrice, menuPictureUrl, popularity, menuDetail, menuCategory);
+=======
+        final AddMenuRequest userRequest = new AddMenuRequest(setName, menuNames, menuPrice, menuDiscountPrice, menuPictureUrl, popularity, menuDetail, menuCategory);
+>>>>>>> origin/master
 
         // request 객체를 JSON으로 직렬화
         final String requestBody = objectMapper.writeValueAsString(userRequest);
