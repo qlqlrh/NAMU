@@ -1,44 +1,27 @@
 package com.green.namu.service;
 
-<<<<<<< HEAD
 import com.green.namu.common.exceptions.BaseException;
 import com.green.namu.common.response.BaseResponseStatus;
 import com.green.namu.domain.OauthMember;
 import com.green.namu.domain.Order;
 import com.green.namu.domain.Store;
 import com.green.namu.domain.User;
+import com.green.namu.dto.LoginDto;
 import com.green.namu.dto.MyPageRes;
+import com.green.namu.dto.RegisterDto;
 import com.green.namu.repository.OrderRepository;
 import com.green.namu.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
-=======
-import com.green.namu.domain.OauthMember;
-import com.green.namu.domain.User;
-import com.green.namu.dto.LoginDto;
-import com.green.namu.dto.RegisterDto;
-import com.green.namu.repository.UserRepository;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import lombok.*;
-import java.util.List;
-import java.util.Optional;
-
-@Service
-@RequiredArgsConstructor
-public class  UserService {
-    private final UserRepository userRepository;
->>>>>>> origin/master
 
     @Transactional
     public User saveUserFromOauth(OauthMember oauthMember) {
@@ -50,7 +33,6 @@ public class  UserService {
     }
 
     @Transactional
-<<<<<<< HEAD
     public User findOrCreateUserFromOauth(OauthMember oauthMember) {
         // OauthMember를 기반으로 User가 이미 존재하는지 확인
         return userRepository.findByEmail(oauthMember.getEmail()) // 이메일을 기준으로 조회
@@ -98,7 +80,7 @@ public class  UserService {
                 pickupTime
         );
     }
-=======
+
     public User register(RegisterDto registerDto) {
         User user = User.createUser(registerDto.getUserName(), registerDto.getPassword(), registerDto.getEmail());
         return userRepository.save(user);
@@ -126,7 +108,4 @@ public class  UserService {
         }
         return user;
     }
-
-
->>>>>>> origin/master
 }

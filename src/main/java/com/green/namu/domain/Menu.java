@@ -1,23 +1,10 @@
 package com.green.namu.domain;
 
 import com.green.namu.common.entity.BaseEntity;
-<<<<<<< HEAD
 import com.green.namu.domain.status.MenuStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.util.ArrayList;
-import java.util.List;
-=======
-import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
->>>>>>> origin/master
 
 @Entity
 @EntityListeners(AuditingEntityListener.class) // Auditing 기능을 활성화하는 리스너
@@ -59,7 +46,6 @@ public class Menu extends BaseEntity {
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING) // enum의 값을 문자열 형태로 데이터베이스에 저장 (인덱스 형태가 아니라)
     private MenuStatus status = MenuStatus.ON_SALE;
-<<<<<<< HEAD
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
@@ -68,6 +54,4 @@ public class Menu extends BaseEntity {
     public void setStore(Store store) {
         this.store = store;
     }
-=======
->>>>>>> origin/master
 }

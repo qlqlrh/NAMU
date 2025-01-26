@@ -7,6 +7,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -39,8 +40,4 @@ public class Cart {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

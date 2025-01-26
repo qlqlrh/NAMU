@@ -1,31 +1,23 @@
 package com.green.namu.service;
 
-<<<<<<< HEAD
 import com.green.namu.common.exceptions.BaseException;
 import com.green.namu.common.response.BaseResponseStatus;
 import com.green.namu.domain.Menu;
 import com.green.namu.domain.Store;
 import com.green.namu.dto.MenuSearchRes;
 import com.green.namu.dto.StoreSearchRes;
-=======
-import com.green.namu.domain.Store;
 import com.green.namu.dto.StoreResponseDto;
->>>>>>> origin/master
 import com.green.namu.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-<<<<<<< HEAD
 import java.util.Map;
-=======
->>>>>>> origin/master
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class StoreService {
-<<<<<<< HEAD
 
     private final StoreRepository storeRepository;
 
@@ -83,8 +75,6 @@ public class StoreService {
                 })
                 .collect(Collectors.toList());
     }
-=======
-    private final StoreRepository storeRepository;
 
     public List<StoreResponseDto> getAllStores() {
         return storeRepository.findAll().stream()
@@ -104,7 +94,7 @@ public class StoreService {
                 .storeName(store.getStoreName())
                 .storeCategory(store.getStoreCategory().name())
                 .isOpen(store.isOpen())
-                .pickupTimes(store.getPickupTimes())
+                .pickupTimes(store.getPickupTime())
                 .minPrice(store.getMinPrice())
                 .reviewCount(store.getReviewCount())
                 .orderCount(store.getOrderCount())
@@ -118,5 +108,4 @@ public class StoreService {
                         .collect(Collectors.toList()))
                 .build();
     }
->>>>>>> origin/master
 }

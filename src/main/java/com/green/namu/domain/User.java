@@ -79,15 +79,6 @@ public class User extends BaseEntity {
                 .joinType(JoinType.valueOf("KAKAO"))
                 .build();
     }
-    public void addOrder(Order order) {
-        this.orders.add(order);
-        order.setUser(this);
-    }
-
-    public void addCart(Cart cart) {
-        this.carts.add(cart);
-        cart.setUser(this);
-    }
 
     public void setTotalDiscount(Integer totalDiscount) {
         this.totalDiscount = totalDiscount;

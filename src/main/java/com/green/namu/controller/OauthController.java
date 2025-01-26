@@ -1,9 +1,6 @@
 package com.green.namu.controller;
 
-<<<<<<< HEAD
 import com.green.namu.common.exceptions.BaseException;
-=======
->>>>>>> origin/master
 import com.green.namu.common.response.BaseResponse;
 import com.green.namu.domain.OauthServerType;
 import com.green.namu.dto.PostLoginRes;
@@ -13,12 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-<<<<<<< HEAD
 import static org.hibernate.query.sqm.tree.SqmNode.log;
 
-=======
->>>>>>> origin/master
 @RequiredArgsConstructor
 @RequestMapping("/oauth")
 @RestController
@@ -44,7 +37,6 @@ public class OauthController {
             @PathVariable(name = "oauthServerType") OauthServerType oauthServerType,
             @RequestParam(name = "code") String code
     ) {
-<<<<<<< HEAD
         try {
             PostLoginRes loginResponse = oauthService.login(oauthServerType, code);
             return new BaseResponse<>(loginResponse);
@@ -52,9 +44,5 @@ public class OauthController {
             log.error("소셜 로그인 중 오류 발생: ", e);
             return new BaseResponse<>(e.getStatus());
         }
-=======
-        PostLoginRes loginResponse = oauthService.login(oauthServerType, code);
-        return new BaseResponse<>(loginResponse);
->>>>>>> origin/master
     }
 }

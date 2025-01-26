@@ -27,7 +27,7 @@ public class CartService {
 
     public Cart updateCart(Long cartId, Cart cartDetails) {
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
-        cart.setMenuId(cartDetails.getMenuId());
+        cart.setMenu(cartDetails.getMenu());
         cart.setCartQuantity(cartDetails.getCartQuantity());
         cart.setStatus(cartDetails.getStatus());
         return cartRepository.save(cart);
