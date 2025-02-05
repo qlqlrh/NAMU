@@ -58,7 +58,7 @@ class MenuApiControllerTest {
         final String menuNames = "애플 와플(1), 콘치폭 핫도그(1)";
         final Integer menuPrice = 10100;
         final Integer menuDiscountPrice = 5000;
-        final String menuPictureUrl = "https://asdf.com";
+        final String menuPictureUrl = "http://apptive-namu.ap-northeast-2.elasticbeanstalk.com";
         final Boolean popularity = true;
         final String menuDetail = "애플 와플: ~~, 콘치폭 핫도그: ~~";
         final Category menuCategory = Category.DESSERT;
@@ -93,7 +93,7 @@ class MenuApiControllerTest {
         final String menuNames = "애플 와플(1), 콘치폭 핫도그(1)";
         final Integer menuPrice = 10100;
         final Integer menuDiscountPrice = 5000;
-        final String menuPictureUrl = "https://asdf.com";
+        final String menuPictureUrl = "http://apptive-namu.ap-northeast-2.elasticbeanstalk.com";
         final Boolean popularity = true;
         final String menuDetail = "애플 와플: ~~, 콘치폭 핫도그: ~~";
         final Category menuCategory = Category.DESSERT;
