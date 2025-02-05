@@ -11,9 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuSearchRes {
-    @JsonProperty("set_name")
     private String setName;
-
-    @JsonProperty("menu_names")
     private String menuNames;
 }

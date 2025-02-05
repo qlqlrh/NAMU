@@ -15,31 +15,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreSearchRes {
-    @JsonProperty("store_id")
     private Long storeId;
-
-    @JsonProperty("store_name")
     private String storeName;
-
-    @JsonProperty("pickup_times")
     private String pickupTimes;
-
-    @JsonProperty("min_price")
     private int minPrice;
-
-    @JsonProperty("review_count")
     private int reviewCount;
-
-    @JsonProperty("order_count")
     private int orderCount;
-
-    @JsonProperty("store_rating")
     private int storeRating;
-
-    @JsonProperty("location")
     private int location; // 미터 단위 거리
-
-    @JsonProperty("set_names")
     private List<MenuSearchRes> setNames;
 
     public static StoreSearchRes fromEntity(Store store, List<MenuSearchRes> menuSets, int location) {
