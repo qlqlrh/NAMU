@@ -40,6 +40,7 @@ public class MenuService {
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.MENU_NOT_FOUND));
 
         return new MenuReadRes(
+                menu.getId(),
                 menu.getSetName(),
                 menu.getMenuNames(),
                 menu.getMenuPrice(),

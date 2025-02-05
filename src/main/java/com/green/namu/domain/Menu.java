@@ -7,14 +7,14 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class) // Auditing 기능을 활성화하는 리스너
+@EntityListeners(AuditingEntityListener.class)
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // 파라미터가 없는 기본 생성자를 자동으로 생성
-@AllArgsConstructor // 모든 필드를 매개변수로 받는 생성자를 자동 생성
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Builder
 public class Menu extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본키를 자동으로 1씩 증가
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     private Long id;
 
@@ -33,8 +33,9 @@ public class Menu extends BaseEntity {
     @Column(name = "menu_picture_url")
     private String menuPictureUrl;
 
-    @Column(name = "popularity") // columnDefinition = "TINYINT(1) DEFAULT 0 <- h2가 인식 못함
-    private Boolean popularity = false;
+    @Builder.Default
+    @Column(name = "popularity")
+    private Boolean popularity = false; // 수정된 부분
 
     @Column(name = "menu_detail")
     private String menuDetail;
@@ -43,9 +44,10 @@ public class Menu extends BaseEntity {
     @Column(name = "menu_category", nullable = false)
     private Category menuCategory;
 
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING) // enum의 값을 문자열 형태로 데이터베이스에 저장 (인덱스 형태가 아니라)
-    private MenuStatus status = MenuStatus.ON_SALE;
+    private MenuStatus status = MenuStatus.ON_SALE; // 수정된 부분
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)

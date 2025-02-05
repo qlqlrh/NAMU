@@ -45,6 +45,7 @@ public class Order {
     @JoinColumn(name = "store_id")
     private Store store;
 
+    @Builder.Default
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderMenu> orderMenus = new ArrayList<>();
 

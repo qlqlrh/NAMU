@@ -51,7 +51,7 @@ public class OauthService {
         userService.updateRefreshToken(user.getUserId(), refreshToken);
 
         // 6. PostLoginRes 반환
-        return new PostLoginRes(accessToken, refreshToken);
+        return new PostLoginRes(user.getUserId(), accessToken, refreshToken);
     }
 
 }

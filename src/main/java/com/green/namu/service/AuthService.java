@@ -34,6 +34,6 @@ public class AuthService {
         userRepository.save(user); // 데이터베이스에 저장
 
         // 3. 응답 반환
-        return new PostLoginRes(accessToken, refreshToken);
+        return new PostLoginRes(user.getUserId(), accessToken, refreshToken);
     }
 }

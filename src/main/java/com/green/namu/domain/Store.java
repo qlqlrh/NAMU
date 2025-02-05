@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @Table(name = "store")
 @AllArgsConstructor
-@NoArgsConstructor (access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Store extends BaseEntity {
 
     @Id
@@ -104,8 +104,9 @@ public class Store extends BaseEntity {
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SetName> setNames;
 
+    @Builder.Default
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Menu> menus = new ArrayList<>();
+    private List<Menu> menus = new ArrayList<>(); // 수정된 부분
 
     public void addMenu(Menu menu) {
         this.menus.add(menu);

@@ -2,6 +2,7 @@ package com.green.namu.controller;
 
 import com.green.namu.dto.FavoriteDto;
 import com.green.namu.service.FavoriteService;
+import com.green.namu.utils.JwtService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
 public class FavoriteController {
 
     private final FavoriteService favoriteService;
+    private final JwtService jwtService;
 
     @Operation(summary = "찜한 전체 가게 조회")
     @GetMapping

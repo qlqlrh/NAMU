@@ -19,7 +19,11 @@ public class StoreResponseDto {
     private int orderCount;
     private double storeRating;
     private int location;
+    private String address;
+    private String phoneNumber;
+    private List<String> storePictureUrls;
     private List<SetNameDto> setNames;
+    private List<MenuReadRes> menus;
 
     @Data
     @NoArgsConstructor

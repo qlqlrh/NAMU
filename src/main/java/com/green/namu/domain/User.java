@@ -11,7 +11,7 @@ import java.util.Objects;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
@@ -43,9 +43,11 @@ public class User extends BaseEntity {
     @Column(name = "grade", length = 100) // TODO: 필요한가?
     private String grade;
 
+    @Builder.Default
     @Column(name = "eco_points", nullable = false)
     private Integer ecoPoints = 0;
 
+    @Builder.Default
     @Column(name = "total_discount", nullable = false)
     private Integer totalDiscount = 0;
 
@@ -60,9 +62,11 @@ public class User extends BaseEntity {
     @Column(name = "refresh_token") // 토큰 관리를 위해 추가
     private String refreshToken;
 
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cart> carts = new ArrayList<>();
 
@@ -100,6 +104,7 @@ public class User extends BaseEntity {
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
+
     public enum JoinType {
         INAPP, // 자체 이메일 가입
         KAKAO  // 카카오 가입

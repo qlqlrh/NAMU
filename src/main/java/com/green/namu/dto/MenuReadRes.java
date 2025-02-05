@@ -8,6 +8,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public class MenuReadRes {
 
+    @JsonProperty("menu_id")
+    private Long menuId;
+
     @JsonProperty("set_name")
     private String setName;
 

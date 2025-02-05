@@ -1,12 +1,10 @@
 package com.green.namu.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.green.namu.domain.Category;
 import com.green.namu.domain.Menu;
-<<<<<<< HEAD
 import com.green.namu.domain.status.MenuStatus;
 import com.green.namu.dto.AddMenuReq;
-=======
->>>>>>> origin/master
 import com.green.namu.repository.MenuRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -63,12 +61,10 @@ class MenuApiControllerTest {
         final String menuPictureUrl = "https://asdf.com";
         final Boolean popularity = true;
         final String menuDetail = "애플 와플: ~~, 콘치폭 핫도그: ~~";
-        final String menuCategory = "베이커리";
-<<<<<<< HEAD
+        final Category menuCategory = Category.DESSERT;
+
         final AddMenuReq userRequest = new AddMenuReq(setName, menuNames, menuPrice, menuDiscountPrice, menuPictureUrl, popularity, menuDetail, menuCategory);
-=======
-        final AddMenuRequest userRequest = new AddMenuRequest(setName, menuNames, menuPrice, menuDiscountPrice, menuPictureUrl, popularity, menuDetail, menuCategory);
->>>>>>> origin/master
+
 
         // request 객체를 JSON으로 직렬화
         final String requestBody = objectMapper.writeValueAsString(userRequest);
@@ -100,21 +96,21 @@ class MenuApiControllerTest {
         final String menuPictureUrl = "https://asdf.com";
         final Boolean popularity = true;
         final String menuDetail = "애플 와플: ~~, 콘치폭 핫도그: ~~";
-        final String menuCategory = "베이커리";
+        final Category menuCategory = Category.DESSERT;
 
         // 메뉴 저장
         // * new Menu 형식이 아니라, 빌더 형식으로 만들어서 save 해야 Id랑 createdAt, updatedAt 필드를 비울 수 있음!
         Menu savedMenu = menuRepository.save(Menu.builder()
-                        .setName(setName)
-                        .menuNames(menuNames)
-                        .menuPrice(menuPrice)
-                        .menuDiscountPrice(menuDiscountPrice)
-                        .menuPictureUrl(menuPictureUrl)
-                        .popularity(popularity)
-                        .menuDetail(menuDetail)
-                        .menuCategory(menuCategory)
-                        .status(MenuStatus.ON_SALE)
-                        .build());
+                .setName(setName)
+                .menuNames(menuNames)
+                .menuPrice(menuPrice)
+                .menuDiscountPrice(menuDiscountPrice)
+                .menuPictureUrl(menuPictureUrl)
+                .popularity(popularity)
+                .menuDetail(menuDetail)
+                .menuCategory(menuCategory)
+                .status(MenuStatus.ON_SALE)
+                .build());
 
         // when
         ResultActions result = mockMvc.perform(get(url, savedMenu.getId())
