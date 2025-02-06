@@ -40,9 +40,11 @@ public class MenuApiController {
         try {
             MenuReadRes response = menuService.findById(menuId);
             return new BaseResponse<>(response);
+//            return ResponseEntity.ok(new BaseResponse<>(response));
         } catch (BaseException e) { // menuService.findById 매서드에서 던진 에러 catch
             log.error("메뉴 조회 중 오류 발생: ", e);
             return new BaseResponse<>(e.getStatus());
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new BaseResponse<>(e.getStatus()));
         }
     }
 }
