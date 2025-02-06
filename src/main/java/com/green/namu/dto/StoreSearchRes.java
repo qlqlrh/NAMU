@@ -23,6 +23,7 @@ public class StoreSearchRes {
     private int orderCount;
     private int storeRating;
     private int location; // 미터 단위 거리
+    private List<String> storePictureUrls;
     private List<MenuSearchRes> setNames;
 
     public static StoreSearchRes fromEntity(Store store, List<MenuSearchRes> menuSets, int location) {
@@ -35,6 +36,7 @@ public class StoreSearchRes {
                 store.getFavoriteCount(), // 또는 실제 주문 횟수와 매핑된 필드
                 store.getStoreRating(),
                 location,
+                store.getStorePictureUrls(),
                 menuSets
         );
     }
